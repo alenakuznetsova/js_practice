@@ -23,17 +23,18 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 					<div><span class="start-quotation">&#8220;</span></div>
-<!-- Start -->
-					<div class="twitter-container">
-    
-     					<a class="twitter-timeline" data-theme="dark" data-tweet-limit="1" data-chrome="noheader nofooter noborders noscrollbar transparent" href="https://twitter.com/search?q=%40quote"  data-widget-id="816935015124791298"></a>          
+					<!-- Start -->
+					<div class="twitter-container">    
+     					<a class="twitter-timeline" href="https://twitter.com/intent/tweet?hashtags=quote data-theme="dark" data-tweet-limit="1" data-chrome="noheader nofooter noborders noscrollbar transparent" data-widget-id="816935015124791298"></a> 
+
+
 
      				</div>		
 <!-- End -->	</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1">
-					<a href="https://twitter.com/intent/tweet?hashtags=quotes"><img class = "btn-twt" src="images/bt_tw.png"></a>						
+					<a href="https://twitter.com/intent/tweet?hashtags=quote"><img class = "btn-twt" src="images/bt_tw.png"></a>						
 				</div>	
 				<div class="col-xs-6 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
 					<a class="btn-new-qu" id="button" type="button" value="Кнопка">NEW QUOTE</a>
@@ -53,19 +54,22 @@
 	</footer>
 
 <script>
-!function(d,s,id){
-	var js,
-	fjs=d.getElementsByTagName(s)[0],
-	p=/^http:/.test(d.location)?'http':'https';
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
 
-	if(!d.getElementById(id)){
-		js=d.createElement(s);
-		js.id=id;
-		js.src=p+"://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);
-	}
-}
-		(document,"script","twitter-wjs");
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
 </script>	
 
 </body>
