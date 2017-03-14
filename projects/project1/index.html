@@ -37,7 +37,7 @@
 					<a href="https://twitter.com/intent/tweet?hashtags=quote"><img class = "btn-twt" src="images/bt_tw.png"></a>						
 				</div>	
 				<div class="col-xs-6 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-					<a class="btn-new-qu" id="button" type="button" value="Кнопка">NEW QUOTE</a>
+					<a class="btn-new-qu" id="quote-button" type="button" value="Кнопка">NEW QUOTE</a>
 				</div>
 			</div>							
 		</div>		
@@ -54,22 +54,27 @@
 	</footer>
 
 <script>
-window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
+	document.getElementById("quote-button").onclick = function()	{
+		window.twttr = ( function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0],
+			    t = window.twttr || {};
+					if (d.getElementById(id)) return t;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "https://platform.twitter.com/widgets.js";
+				fjs.parentNode.insertBefore(js, fjs);
+				t._e = [];
 
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
+		    t.ready = function(f) {
+			    t._e.push(f);
+		};
 
-  return t;
-}(document, "script", "twitter-wjs"));
+		  return t;
+		}
+		(document, "script", "twitter-wjs") );
+	}
+
+
 </script>	
 
 </body>
