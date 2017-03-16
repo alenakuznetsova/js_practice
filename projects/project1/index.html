@@ -17,8 +17,8 @@
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </head>
-<body>
-	<section class="main-quotes-windows center-block">
+<body id="main-fon">
+	<section class="main-quotes-windows center-block" id="quote-fon">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
@@ -26,9 +26,6 @@
 					<!-- Start -->
 					<div class="twitter-container">    
      					<a class="twitter-timeline" href="https://twitter.com/intent/tweet?hashtags=quote data-theme="dark" data-tweet-limit="1" data-chrome="noheader nofooter noborders noscrollbar transparent" data-widget-id="816935015124791298"></a> 
-
-
-
      				</div>		
 <!-- End -->	</div>
 			</div>
@@ -37,7 +34,7 @@
 					<a href="https://twitter.com/intent/tweet?hashtags=quote"><img class = "btn-twt" src="images/bt_tw.png"></a>						
 				</div>	
 				<div class="col-xs-6 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-					<a class="btn-new-qu" id="quote-button" type="button" value="Кнопка">NEW QUOTE</a>
+					<a class="btn-new-qu" id="quote-button" type="button" value="Кнопка" onclick="changeColour(); showQuote ();">NEW QUOTE</a>
 				</div>
 			</div>							
 		</div>		
@@ -54,27 +51,43 @@
 	</footer>
 
 <script>
-	document.getElementById("quote-button").onclick = function()	{
-		window.twttr = ( function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0],
-			    t = window.twttr || {};
-					if (d.getElementById(id)) return t;
-				js = d.createElement(s);
-				js.id = id;
-				js.src = "https://platform.twitter.com/widgets.js";
-				fjs.parentNode.insertBefore(js, fjs);
-				t._e = [];
+	function showQuote () {
+		document.getElementById("quote-button").onclick = function()	{
+			window.twttr = ( function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0],
+				    t = window.twttr || {};
+						if (d.getElementById(id)) return t;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "https://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js, fjs);
+					t._e = [];
 
-		    t.ready = function(f) {
-			    t._e.push(f);
-		};
+			    t.ready = function(f) {
+				    t._e.push(f);
+				};
 
-		  return t;
-		}
+			  return t;
+			}
 		(document, "script", "twitter-wjs") );
+		}
 	}
+	
+	function changeColour () {
+		var myEl = document.getElementById('main-fon');	
 
+		myEl.onclick = function(){
+	    	var R = Math.floor(Math.random() * (255 + 1));
+	    	var G = Math.floor(Math.random() * (255 + 1));
+	    	var B = Math.floor(Math.random() * (255 + 1));
+	    myEl.style.backgroundColor = 'rgb(' + R + ', ' + G + ', ' + B + ')';
+		}
 
+		return myEl;
+	}
+	
+
+	
 </script>	
 
 </body>
