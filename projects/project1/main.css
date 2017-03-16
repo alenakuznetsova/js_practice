@@ -7,21 +7,25 @@ footer {
 }
 
 .main-quotes-windows {
-	background-color: #E0F2F1;
 	margin: 70px;
 	padding: 30px;
-	border: 15px double #009688;
+	border: 15px double #ffffff;
 }
+	#quote-fon {
+		background-color: transparent;
+	}
 
 .btn-new-qu {
 	border: 7px outset;
 	padding: 15px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	color: #ffffff;
 }
 
 .btn-new-qu:hover {	
 	box-shadow: 0 0 20px rgba(0,0,0,0.5);
 	font-weight: bold;
+	color: #ffffff;
 }
 
 .btn-twt:hover {
@@ -34,7 +38,7 @@ a {
 
 .start-quotation {
 	font-size: 150px;
-	color: #848383;
+	color: #ffffff;
 	position: relative;
 }
 
