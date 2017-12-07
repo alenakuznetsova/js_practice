@@ -1,0 +1,28 @@
+header {
+    background: #7B1FA2;
+    color: white;
+    text-align: left;
+    padding: 20px;
+}
+
+footer {
+    background: #6A1B9A;
+    color: white;
+    text-align: left;
+    padding: 10px;
+}
+
+#li {
+    visibility: hidden;
+}
+
+.answer-li {
+    text-decoration: none;
+    display: inline;
+}
+
+.answer-letter {    
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 5px;
+}

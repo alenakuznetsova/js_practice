@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>QUIZ GAME TRIVIA</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <h2>QUIZ GAME TRIVIA</h2>
+    </header>
+    <section class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Correct answers:</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <p>Total Questions:</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p><strong>ID: </strong><span id="quiz-id"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p><strong>Question Category: </strong><span id="category-quiz-id"></span></p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p>Attention in responses all spaces are replaced by _</p>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p id="quiz-text">Текст вопроса</p>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-sm-4 text-center">
+                    <button type="button" class="btn btn-warning btn-block" onclick="showRepositiries()">SKIP</button>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <button type="button" class="btn btn-success disabled btn-block">NEXT QUIZ</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p>Печать правильного ответа</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <ul id="quiz-ans-letter">
+                    </ul>
+                </div>
+            </div>
+    </section>
+    <footer>
+        <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <h6>by Kuznetsova Alyona</h6>
+                    </div>
+                </div>
+            </div>        
+    </footer>
+    <script>           
+        showRepositiries();  
+
+        function showRepositiries() { 
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://jservice.io/api/random", true);              
+            xhr.onreadystatechange = function(e) {
+                var obj = JSON.parse(this.responseText);                     
+                if (this.readyState == 4 && this.status == 200) {    
+                    printDataFromJSON(obj);
+                }                                             
+            };                
+            xhr.send();                        
+        }
+
+        function printDataFromJSON(object){            
+            document.getElementById('quiz-id').innerHTML = object[0].id;
+            document.getElementById('category-quiz-id').innerHTML = object[0].category.title;
+            document.getElementById('quiz-text').innerHTML = object[0].question;
+            var clrAns = prepareAnswerFromServer(object[0].answer);
+            createAnswer(clrAns);    
+            console.log('right answer: '+ object[0].answer);           
+        }
+
+        function removeOldAnswer() {
+            var list = document.getElementById('quiz-ans-letter'); 
+            while (list.firstChild) {
+                list.firstChild.remove();
+            }                                  
+        }
+
+        function prepareAnswerFromServer(answer) {
+            var str2 = answer.replace(/<[^>]+>/g,'');
+            var rightStr = str2.replace(/[^A-Za-zА-Яа-яЁё]/g,'');
+            var str = rightStr.split('');
+            return str;  
+        }
+
+        function createAnswer(element) { 
+            removeOldAnswer();
+            var list = document.getElementById('quiz-ans-letter'); 
+            var newLi = document.createElement('li'); 
+            newLi.className = 'answer-li';    
+            list.appendChild(newLi);            
+            for(var i=0; i < element.length; i++) {                
+                var newSpan = document.createElement('span');                
+                newSpan.className = 'answer-letter';
+                newSpan.innerText = element[i];                
+                newLi.appendChild(newSpan); 
+            }
+        }     
+    </script>
+</body>
+</html>
