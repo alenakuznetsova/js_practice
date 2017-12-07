@@ -1,0 +1,78 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 700px;
+    background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
+}
+
+.todo-title {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 50px;
+    color: #ffffff;
+}
+
+#inItemText {
+    margin-top: 30px;
+    width: 600px;
+    padding: 15px;
+    color: grey;
+    font-size: 25px;
+}
+
+#btnAdd {
+    height: 40px;
+    padding: 18px 15px 45px;
+    background: #00C853;  
+    font-size: 25px;
+    border: 0;  
+    text-align: center;
+}
+
+#main-list {
+    margin: 30px auto;
+}
+
+.main-list__tasks {
+    margin: 50px auto;
+    list-style-type: none;
+}
+
+.list-title {
+    color: #ffffff;
+    font-size: 35px;
+}
+
+.li-list {
+    color: grey;
+    font-size: 25px;
+    background: white;
+    padding: 10px;
+    width: 50%;
+    text-align: left;
+    border-bottom: 1px solid grey;
+
+}
+
+.btn-dlt {
+    margin: 0;
+    float: right;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    vertical-align: middle;
+
+}
+
+input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+}
+
+/* .footer {
+    padding: 15px 50px;
+    width: 100%;
+    background: #465298;
+    color: white;
+} */
