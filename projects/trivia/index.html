@@ -32,11 +32,6 @@
                     <p><strong>Question Category: </strong><span id="category-quiz-id"></span></p>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-sm-12 text-center">
-                    <p>Attention in responses all spaces are replaced by _</p>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <p id="quiz-text">Текст вопроса</p>
@@ -52,15 +47,23 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 text-center">
+                    <p id="answer-correct">Answer is correct</p>
+                    <p id="answer-inCorrect">Answer is incorrect</p>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-sm-10 text-center">
                     <p>Печать правильного ответа</p>
+                    <div class="ansver-puzzle">
+                        <ul id="ansver-puzzle-li"></ul>
+                    </div>                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <ul id="quiz-ans-letter">
-                    </ul>
+                    <ul id="quiz-ans-letter"></ul>
                 </div>
-            </div>
+            </div>            
     </section>
     <footer>
         <div class="container-fluid">
@@ -71,9 +74,11 @@
                 </div>
             </div>        
     </footer>
-    <script>           
-        showRepositiries();  
+    <script>       
+    var answerFromServer = [];
+    var answerFromcustomer = [];   
 
+        showRepositiries(); 
         function showRepositiries() { 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "http://jservice.io/api/random", true);              
@@ -104,24 +109,53 @@
 
         function prepareAnswerFromServer(answer) {
             var str2 = answer.replace(/<[^>]+>/g,'');
-            var rightStr = str2.replace(/[^A-Za-zА-Яа-яЁё]/g,'');
-            var str = rightStr.split('');
+            // var rightStr = str2.replace(/[^A-Za-zА-Яа-яЁё]/g,'');
+            var str = str2.split('');
             return str;  
         }
 
         function createAnswer(element) { 
             removeOldAnswer();
             var list = document.getElementById('quiz-ans-letter'); 
-            var newLi = document.createElement('li'); 
-            newLi.className = 'answer-li';    
-            list.appendChild(newLi);            
-            for(var i=0; i < element.length; i++) {                
-                var newSpan = document.createElement('span');                
-                newSpan.className = 'answer-letter';
-                newSpan.innerText = element[i];                
-                newLi.appendChild(newSpan); 
+            var newLi;                     
+            for(var i=0; i < element.length; i++) {  
+                newLi = document.createElement('li');
+                newLi.className = 'answer-letter ';                                              
+                newLi.innerText = element[i];             
+                list.appendChild(newLi);  
+                saveInArray(answerFromServer, element[i]);
+                newLi.onclick = function() {
+                    printLetter(this.innerHTML);
+                    this.remove();
+                    compareAnsvers(answerFromServer, answerFromcustomer);
+                }                
             }
-        }     
+                        
+            function printLetter(element) {
+                var ulList = document.getElementById('ansver-puzzle-li');
+                var newList = document.createElement('li');                                
+                newList.className = 'answer-letter ';
+                newList.innerText = element; 
+                ulList.appendChild(newList);
+                saveInArray(answerFromcustomer, element);                              
+            } 
+        }
+
+        function saveInArray(array, item) {
+            array.push(item);
+        }
+
+        function compareAnsvers(arr1, arr2) {
+            if (arr1.length === arr2.length) {
+                for(var i=0; i<arr1.length; i++) {
+                    if (arr1[i] === arr2[i]) {
+                        // console.log(arr1[i] === arr2[i]);
+                        document.getElementById('answer-correct').style.display = 'inline';
+                    } else document.getElementById('answer-inCorrect').style.display = 'inline'; 
+                }
+            }
+                        
+        }
     </script>
 </body>
 </html>
