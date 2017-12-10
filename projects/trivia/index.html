@@ -47,8 +47,12 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <p id="answer-correct">Answer is correct</p>
-                    <p id="answer-inCorrect">Answer is incorrect</p>
+                    <div id="answer-correct" class="hide">
+                        <p>Answer is correct</p>
+                    </div>
+                    <div  id="answer-inCorrect" class="hide">
+                        <p>Answer is incorrect</p>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-md-center">
@@ -146,15 +150,26 @@
         }
 
         function compareAnsvers(arr1, arr2) {
+            var answer = [];
+
+
             if (arr1.length === arr2.length) {
                 for(var i=0; i<arr1.length; i++) {
                     if (arr1[i] === arr2[i]) {
-                        // console.log(arr1[i] === arr2[i]);
-                        document.getElementById('answer-correct').style.display = 'inline';
-                    } else document.getElementById('answer-inCorrect').style.display = 'inline'; 
+                        answer.push(1);                        
+                    } else {
+                        answer.push(0);                        
+                    }                                                  
                 }
-            }
-                        
+                if (answer.indexOf(0) === -1 ) {
+                    document.getElementById('answer-correct').classList.remove('hide');
+                    document.getElementById('answer-correct').classList.add('answer-correct');
+                } else {
+                    document.getElementById('answer-inCorrect').classList.remove('hide');
+                    document.getElementById('answer-correct').classList.add('hide');
+                    document.getElementById('answer-inCorrect').classList.add('answer-inCorrect');
+                }
+            }                        
         }
     </script>
 </body>
