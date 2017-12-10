@@ -35,27 +35,29 @@ ul{
     display: none;
 }
 
-#answer-correct {
+.answer-correct {
     color: green;
-    display: none;
+    display: block;
     font-size: 16px;
-}
-
-#answer-inCorrect {
-    color: red;
-    display: none;    
-    font-size: 16px;
-}
-
-/* .ans-correct {
-    display: inline;
     background: lightgreen;
+    border: 1px solid green;
+    padding: 15px;
+    margin: 15px;
 }
 
-.ans-incorrect {
-    display: inline;
+.answer-inCorrect {
+    color: red;
+    display: block;    
+    font-size: 16px;
     background: lightcoral;
-} */
+    border: 1px solid red;
+    padding: 15px;
+    margin: 15px;
+}
+
+.hide {
+    display: none;
+}
 
 footer {
     margin-top: 30px;
