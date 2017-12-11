@@ -42,7 +42,7 @@
                     <button type="button" class="btn btn-warning btn-block" onclick="showRepositiries()">SKIP</button>
                 </div>
                 <div class="col-sm-4 text-center">
-                    <button type="button" class="btn btn-success disabled btn-block">NEXT QUIZ</button>
+                    <button type="button" id="NextQuiz" class="btn btn-success disabled btn-block">NEXT QUIZ</button>
                 </div>
             </div>
             <div class="row justify-content-md-center">
@@ -58,7 +58,7 @@
             <div class="row justify-content-md-center">
                 <div class="col-sm-10 text-center">
                     <p>Печать правильного ответа</p>
-                    <div class="ansver-puzzle">
+                    <div id="ansver-puzzle">
                         <ul id="ansver-puzzle-li"></ul>
                     </div>                    
                 </div>
@@ -80,14 +80,15 @@
     </footer>
     <script>       
     var answerFromServer = [];
-    var answerFromcustomer = [];  
+    var answerFromCustomer = [];  
 
     var totalRightAnswers = 0;
     var totalQuestions = 0;
     
         showRepositiries(); 
         function showRepositiries() { 
-            totalQuestions++;
+            document.getElementById('NextQuiz').classList.add('disabled');
+            // totalQuestions++;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "http://jservice.io/api/random", true);              
             xhr.onreadystatechange = function(e) {
@@ -109,16 +110,24 @@
         }
 
         function removeOldAnswer() {
-            var list1 = document.getElementById('quiz-ans-letter'); 
-            var list2 = document.getElementById('ansver-puzzle-li'); 
-            while (list1.firstChild && list2.firstChild) {
-                list1.firstChild.remove();
+            // answerFromServer.slice(0);
+            // answerFromCustomer.slice(0);
+
+            var list = document.getElementById('quiz-ans-letter'); 
+            while (list.firstChild) {
+                list.firstChild.remove();
+            } 
+            var list2 = document.getElementById('ansver-puzzle-li');  
+            while (list2.firstChild) {
                 list2.firstChild.remove();
-            }                                  
+                document.getElementById('answer-inCorrect').classList.add('hide');
+                document.getElementById('answer-correct').classList.add('hide');
+            }                                        
         }
 
         function prepareAnswerFromServer(answer) {
-            var str2 = answer.replace(/<[^>]+>/g,'');
+            var upStr = answer.toUpperCase();
+            var str2 = upStr.replace(/<[^>]+>/g,'');
             // var rightStr = str2.replace(/[^A-Za-zА-Яа-яЁё]/g,'');
             var str = str2.split('');
             return str;  
@@ -137,7 +146,7 @@
                 newLi.onclick = function() {
                     printLetter(this.innerHTML);
                     this.remove();
-                    compareAnsvers(answerFromServer, answerFromcustomer);
+                    compareAnsvers(answerFromServer, answerFromCustomer);
                 }                
             }
                         
@@ -147,12 +156,16 @@
                 newList.className = 'answer-letter ';
                 newList.innerText = element; 
                 ulList.appendChild(newList);
-                saveInArray(answerFromcustomer, element);                              
+                saveInArray(answerFromCustomer, element);                              
             } 
         }
 
-        function saveInArray(array, item) {
-            array.push(item);
+        function deleteFromArray(array) {
+            array.length = 0;
+        }
+
+        function saveInArray(array, item) {  
+            array.push(item);            
         }
 
         function compareAnsvers(arr1, arr2) {
@@ -166,17 +179,17 @@
                 if (answer === false ) {
                     document.getElementById('answer-inCorrect').classList.remove('hide');
                     document.getElementById('answer-inCorrect').classList.add('answer-inCorrect');
-                    
+                    totalQuestions++;
                 } else {
                     document.getElementById('answer-correct').classList.remove('hide');
                     document.getElementById('answer-correct').classList.add('answer-correct');
+                    document.getElementById('NextQuiz').classList.remove('disabled');
+                    totalRightAnswers++;
                 }
-            }             
-        }
 
-        function showTotalQuestion() {
-            var total = document.getElementById('total-question');
-
+                deleteFromArray(answerFromServer);
+                deleteFromArray(answerFromCustomer);
+            }                         
         }
     </script>
 </body>

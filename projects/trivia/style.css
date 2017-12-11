@@ -22,7 +22,7 @@ footer {
     display: inline-block;
 }
 
-.ansver-puzzle{
+#ansver-puzzle{
     border: 1px solid black;
     padding: 20px;
 }
