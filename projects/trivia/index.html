@@ -19,7 +19,7 @@
                     <p>Correct answers:</p>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <p>Total Questions:</p>
+                    <p id="total-question">Total Questions:</p>
                 </div>
             </div>
             <div class="row">
@@ -45,8 +45,8 @@
                     <button type="button" class="btn btn-success disabled btn-block">NEXT QUIZ</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12 text-center">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-10 text-center">
                     <div id="answer-correct" class="hide">
                         <p>Answer is correct</p>
                     </div>
@@ -80,10 +80,14 @@
     </footer>
     <script>       
     var answerFromServer = [];
-    var answerFromcustomer = [];   
+    var answerFromcustomer = [];  
 
+    var totalRightAnswers = 0;
+    var totalQuestions = 0;
+    
         showRepositiries(); 
         function showRepositiries() { 
+            totalQuestions++;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "http://jservice.io/api/random", true);              
             xhr.onreadystatechange = function(e) {
@@ -105,9 +109,11 @@
         }
 
         function removeOldAnswer() {
-            var list = document.getElementById('quiz-ans-letter'); 
-            while (list.firstChild) {
-                list.firstChild.remove();
+            var list1 = document.getElementById('quiz-ans-letter'); 
+            var list2 = document.getElementById('ansver-puzzle-li'); 
+            while (list1.firstChild && list2.firstChild) {
+                list1.firstChild.remove();
+                list2.firstChild.remove();
             }                                  
         }
 
@@ -150,26 +156,27 @@
         }
 
         function compareAnsvers(arr1, arr2) {
-            var answer = [];
-
-
+            var answer;
             if (arr1.length === arr2.length) {
                 for(var i=0; i<arr1.length; i++) {
-                    if (arr1[i] === arr2[i]) {
-                        answer.push(1);                        
-                    } else {
-                        answer.push(0);                        
+                    if (arr1[i] != arr2[i]) {
+                        answer = false;                        
                     }                                                  
                 }
-                if (answer.indexOf(0) === -1 ) {
+                if (answer === false ) {
+                    document.getElementById('answer-inCorrect').classList.remove('hide');
+                    document.getElementById('answer-inCorrect').classList.add('answer-inCorrect');
+                    
+                } else {
                     document.getElementById('answer-correct').classList.remove('hide');
                     document.getElementById('answer-correct').classList.add('answer-correct');
-                } else {
-                    document.getElementById('answer-inCorrect').classList.remove('hide');
-                    document.getElementById('answer-correct').classList.add('hide');
-                    document.getElementById('answer-inCorrect').classList.add('answer-inCorrect');
                 }
-            }                        
+            }             
+        }
+
+        function showTotalQuestion() {
+            var total = document.getElementById('total-question');
+
         }
     </script>
 </body>
